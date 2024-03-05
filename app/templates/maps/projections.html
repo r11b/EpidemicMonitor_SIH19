@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Epidemic Monitor</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Health medical template project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/styles/bootstrap4/bootstrap.min.css">
+<link href="/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div id="floating-panel">
+  <a class="badge badge-primary" style="font-size: 16px; background-color: #32c69a !important" href="{{ url_for('index') }}">Home</a>
+  <span>Select Disease</span>
+  <select class="custom-select" onchange="setDisease(this.value)">
+    {% for disease in diseases %}
+      <option value="{{ disease }}">{{ disease }}</option>
+    {% endfor %}
+  </select>
+  <span>Select Week</span>
+  <select class="custom-select" onchange="updateHeatMap(this.value)">
+    {% for week_no in weeks %}
+      <option value="{{ week_no }}">{{ week_no }}</option>
+    {% endfor %}
+  </select>
+  <button type="button" class="btn" id="infected" onclick="showInfected();">Infected</button>
+  <button type="button" class="btn btn-light" id="cured" onclick="showCured();">Cured</button>
+  <button type="button" class="btn btn-light" id="dead" onclick="showDead();">Dead</button>
+</div>
+<div id="map"></div>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMR7VV2KKzz105pYFMfwefe7t2K3r3De0&libraries=visualization">
+</script>
+<style>
+  #map {
+    height: 100%;
+  }
+  html, body {
+    height: 100%;
+  }
+  #floating-panel {
+    position: absolute;
+    top: 10px;
+    left: 25%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+  }
+</style>
+
+<script type="text/javascript">
+  var map, heatmap;
+  var fullData = {{ disease_data|tojson }};
+  var diseaseData = fullData["{{ diseases[0] }}"];
+  var pointsType = 'infected';
+  var currVersion = 0;
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: {{ zoom }},
+    center: {lat: {{ map_center.lat }}, lng: {{ map_center.lng }}},
+    mapTypeId: 'roadmap'
+  });
+
+  heatmap = new google.maps.visualization.HeatmapLayer({
+    data: getPoints(currVersion),
+    map: map
+  })
+  heatmap.set('radius', {{ radius }});
+  heatmap.set('opacity', {{ opacity }});
+
+  function updateHeatMap(ver) {
+    currVersion = ver;
+    heatmap.set('data', getPoints(ver));
+  }
+
+  function setDisease(disease) {
+    diseaseData = fullData[disease];
+    getPoints(0);
+  }
+
+  function getPoints(ver) {
+    var version = 'ver' + ver;
+    var points = [];
+
+    for (point of diseaseData[version][pointsType]) {
+      points.push({
+        location: new google.maps.LatLng(point['lat'], point['lng']),
+        weight: point['wgt']
+      });
+    }
+
+    return points;
+  }
+
+  function showInfected() {
+    pointsType = 'infected';
+    // change button classes
+    document.getElementById('infected').className = 'btn';
+    document.getElementById('cured').className = 'btn btn-light';
+    document.getElementById('dead').className = 'btn btn-light';
+    updateHeatMap(currVersion);
+  }
+
+  function showCured() {
+    pointsType = 'cured';
+    // change button classes
+    document.getElementById('infected').className = 'btn btn-light';
+    document.getElementById('cured').className = 'btn';
+    document.getElementById('dead').className = 'btn btn-light';
+    updateHeatMap(currVersion);
+  }
+
+  function showDead() {
+    pointsType = 'dead';
+    // change button classes
+    document.getElementById('infected').className = 'btn btn-light';
+    document.getElementById('cured').className = 'btn btn-light';
+    document.getElementById('dead').className = 'btn';
+    updateHeatMap(currVersion);
+  }
+</script>
+
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/styles/bootstrap4/popper.js"></script>1
+<script src="/static/styles/bootstrap4/bootstrap.min.js"></script>
+</body>
+</html>
