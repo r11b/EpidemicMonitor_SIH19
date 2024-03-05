@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% set active_page = 'reports' %}
+
+{% block content %}
+<style>
+  input#submit {
+		height:31px !important;
+		width: 80px !important;
+	}
+	.bg-img{
+    background-image:url(/static/images/pill.jpg);
+height:100%;
+    background-attachment:fixed;
+     background-position:center;
+     background-repeat:no-repeat;
+     background-size:cover;
+
+
+	}
+</style>
+
+<!-- <div class="news" padding-top="1px" !important> -->
+<div class="bg-img" >
+<!-- <div id="bg" style="background-image:url(/static/images/111.jpg)" style="background-repeat:no-repeat" > -->
+<br><br>
+  <div class="container">
+    <br>
+    <h1 style="color:darkorange; font-family:verdana;">Reports</h1>
+    <br><br>
+    {% for disease, report in reports %}
+      <h3 style="color: #343a40"><b>{{ disease }}</b></h3>
+      <ul class="list-group mb-3">
+        {% for report_id in report %}
+          <li class="list-group-item"><p><b>Report ID: </b><a href="{{ url_for('reports.info', id=report_id) }}">{{ report_id }}</a></p></li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </div>
+  <br><br>
+  </div>
+{% endblock %}

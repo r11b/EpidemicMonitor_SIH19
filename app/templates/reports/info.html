@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  input#submit {
+		height:31px !important;
+		width: 80px !important;
+	}
+	.bg-img{
+    background-image:url(/static/images/hos.jpg);
+height:100%;
+    background-attachment:fixed;
+     background-position:center;
+     background-repeat:no-repeat;
+     background-size:cover;
+
+
+	}
+</style>
+
+<!-- <div class="news" padding-top="1px" !important> -->
+<div class="bg-img" >
+  <br><br>
+  <div class="contact_col" >
+
+    <div class="col-md-8 offset-md-2" style="background: #e5ecf1" >
+      <br><br>
+
+
+
+    <p><b>Report ID:</b> {{ report._id }}</p>
+    <p><b>Disease:</b> {{ report.disease }}</p>
+    <p><b>User:</b> {{ report.user }}</p>
+    <p><b>Gender:</b> {{ report.gender }}</p>
+    <p><b>Age group:</b> {{ report['age-group'] }}</p>
+    <p><b>Date:</b> {{ report.date }}</p>
+    <p><b>Location:</b> {{ report.location.address }} (lat={{ report.location.latitude }},
+      long={{ report.location.longitude }})</p>
+      <br>
+      <form class="" action="{{ url_for('reports.delete', id=report._id) }}" method="post">
+        <input type="submit" class="btn btn-danger" value="Delete" onclick="return confirm('Are you sure?');">
+      </form>
+      <br>
+  </div>
+  <br>
+  </div>
+
+  </div>
+{% endblock %}
