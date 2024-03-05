@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% set active_page = 'users' %}
+
+{% block content %}
+<style>
+#bg{
+  background-image:url(/static/images/try3.jpg);
+height:100%;
+  background-attachment:fixed;
+   background-repeat:no-repeat;
+   background-position:center;
+   background-size:cover;
+
+}
+</style>
+
+<!-- <div class="news" padding-top="1px" !important> -->
+<div id="bg" >
+
+<div class="contact_col">
+
+  <br><br>
+  <div class="col-md-6 offset-md-2" style="background: #e5ecf1" >
+    <div class="news_post_title">
+      <br>
+  <h3 style="color: #343a40">{{ user.name }}</h3>
+  <hr>
+  </div>
+  <p>Email: {{ user.email }}</p>
+  <p>Phone: {{ user.phone }}</p>
+  <p>Gender: {{ user.gender }}</p>
+  <p>Aadhaar: {{ user.aadhaar }}</p>
+  <p>Type: {{ user.type }}</p>
+  <p>Verified:
+    {% if user.verified == 'false' %}
+      No
+      <form class="" action="{{ url_for('users.verify', id=user._id) }}" method="post">
+        <input type="submit" class="btn btn-info" value="Verify" onclick="return confirm('Are you sure?');">
+      </form>
+    {% else %}
+      Yes
+    {% endif %}</p>
+  <p>Suspended:
+    {% if user.suspended == 'true' %}
+      Yes
+      <form class="" action="{{ url_for('users.unsuspend', id=user._id) }}" method="post">
+        <input type="submit" class="btn btn-info" value="Unsuspend" onclick="return confirm('Are you sure?');">
+      </form>
+    {% else %}
+      No
+      <form class="" action="{{ url_for('users.suspend', id=user._id) }}" method="post">
+        <input type="submit" class="btn btn-danger" value="Suspend" onclick="return confirm('Are you sure?');">
+      </form>
+    {% endif %}</p>
+    <br><br>
+    </div>
+
+    </div>
+    <br><br>
+    </div>
+{% endblock %}

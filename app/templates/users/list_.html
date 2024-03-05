@@ -1,0 +1,49 @@
+
+{% extends 'base.html' %}
+{% set active_page = 'users' %}
+
+{% block content %}
+<style>
+#bg{
+	background-image:url(/static/images/user.jpg);
+height:100%;
+	background-attachment:fixed;
+	 background-repeat:no-repeat;
+	 background-position:center;
+	 background-size:cover;
+
+}
+</style>
+
+<!-- <div class="news" padding-top="1px" !important> -->
+<div id="bg" >
+<!-- <div id="bg" style="background-image:url(/static/images/111.jpg)" style="background-repeat:no-repeat" > -->
+<br><br>
+	<div class="container">
+
+  <div class="row">
+
+    <!-- News Posts -->
+      <div class="col-md-8 offset-md-2"  >
+        <br>
+				<ul>
+				<div class="row">
+				<div class="fa fa-user " style="font-size:60px; color:darkorange"></div>
+         &nbsp; &nbsp; <h1 style="color:darkorange; font-family:verdana;">List of Users</h1>
+				</div>
+				</ul>
+        <br>
+	       <ul class="list-group" !important>
+           {% for user in users %}
+           <li class="list-group-item"><h4><a href="{{ url_for('users.info', id=user._id) }}">{{ user.name }}</a></h4>
+             <p>{{ user.email }}</p></li>
+             {% endfor %}
+             <br><br>
+           </ul>
+         </div>
+
+       </div>
+     </div>
+		 <br><br>
+		 </div>
+{% endblock %}
