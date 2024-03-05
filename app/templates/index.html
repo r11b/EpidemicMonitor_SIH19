@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% set active_page = 'index' %}
+
+{% block content %}
+<style>
+body {
+  overflow-y: hidden;
+}
+.bg-image {
+  background-image: url('/static/images/index_hero2.jpg');
+  background-repeat: no-repeat;
+  height: 553px;
+}
+.border-custom {
+  border-radius: 300px;
+  background-color: rgba(50, 198, 154, 0.5);
+  height: 550px;
+  padding: 75px;
+  color: #ffffff;
+}
+.h100 {
+  height: 100%;
+}
+#white {
+  color: #ffffff;
+}
+</style>
+
+<div class="bg-image">
+  <div class="container h100">
+    <div class="row h100">
+      <div class="col-md-6 h100">
+        <div style="margin-top: 100px;">
+          <div class="border-custom">
+            <center>
+              <h1><b>Let's Make Something Good Together.</b></h1>
+              <p id='white'>Our disease surveillance gives user the opportunity to contribute valuable information related to diseases. Based on the user inputs, epidemic monitor will be able to predict the spread of infectious diseases.</p>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" href="/static/images/main_icon2.png" sizes="16x16">
+<title>Epidemic Monitor</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Health medical template project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/styles/bootstrap4/bootstrap.min.css">
+<link href="/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/static/styles/contact.css">
+<link rel="stylesheet" type="text/css" href="/static/styles/contact_responsive.css">
+<link rel="stylesheet" type="text/css" href="/static/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="/static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+<link rel="stylesheet" type="text/css" href="/static/plugins/OwlCarousel2-2.2.1/animate.css">
+<link rel="stylesheet" type="text/css" href="/static/styles/news.css">
+<link rel="stylesheet" type="text/css" href="/static/styles/news_responsive.css">
+</head>
+<body>
+
+<div class="super_container">
+
+
+
+	<!-- Home -->
+
+	<div class="home">
+
+
+		<!-- Header -->
+
+		<header class="header" id="header">
+			<div>
+				<div class="header_top">
+					<div class="container">
+						<div class="row">
+							<img src="/static/images/main_icon2.png" alt="logo" style="width:90px;height:80px;">
+							<div class="col">
+								<div class="header_top_content d-flex flex-row align-items-center justify-content-start">
+									<div class="logo">
+										<a href="{{ url_for('index') }}">Epidemic Monitor</a>
+									</div>
+									<div class="header_top_extra d-flex flex-row align-items-center justify-content-start ml-auto">
+<div class="header_top_nav">
+<ul class="d-flex flex-row align-items-center justify-content-start">
+	{% if g.user %}
+		<li><a {% if active_page == 'users' %}style="color: #32c69a;"{% endif %} href="{{ url_for('users.list_') }}">Users</a></li>
+		<li><a {% if active_page == 'admin' %}style="color: #32c69a;"{% endif %} href="{{ url_for('admin.create') }}">Add new admin</a></li>
+	<li> <a href="{{ url_for('admin.logout', next=request.endpoint) }}">Logout</a></li>
+	{% else %}
+	<li> <a {% if active_page == 'admin' %}style="color: #32c69a;"{% endif %} href="{{ url_for('admin.login', next=request.endpoint) }}">Admin</a></li>
+	{% endif %}
+</ul>
+</div>
+
+</div>
+</div>
+
+									<div class="hamburger ml-auto"><i class="fa fa-bars" aria-hidden="true"></i></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="header_nav" id="header_nav_pin">
+					<div class="header_nav_inner">
+						<div class="header_nav_container">
+							<div class="container">
+								<div class="row">
+									<div class="col">
+										<div class="header_nav_content d-flex flex-row align-items-center justify-content-start">
+											<nav class="main_nav">
+												<ul class="d-flex flex-row align-items-center justify-content-start">
+                          <li {% if active_page == 'index' %}class="active"{% endif %}><a href="{{ url_for('index') }}">Home</a></li>
+													<li {% if active_page == 'diseases' %}class="active"{% endif %}><a href="{{ url_for('diseases.list_') }}">Diseases</a></li>
+													<li {% if active_page == 'hospitals' %}class="active"{% endif %}><a href="{{ url_for('hospitals.list_') }}">Hospitals</a></li>
+													<!-- <li class><a href="{{ url_for('maps.projections') }}">Projections</a></li> -->
+                          {% if g.user %}
+                          <li {% if active_page == 'reports' %}class="active"{% endif %}><a href="{{ url_for('reports.list_') }}">Reports</a></li>
+                          {% endif %}
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+
+	</div>
+
+
+</div>
+{% block content %}{% endblock %}
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/styles/bootstrap4/popper.js"></script>
+<script src="/static/styles/bootstrap4/bootstrap.min.js"></script>
+<script src="/static/plugins/easing/easing.js"></script>
+<script src="/static/plugins/parallax-js-master/parallax.min.js"></script>
+<script src="/static/plugins/greensock/TweenMax.min.js"></script>
+<script src="/static/plugins/greensock/TimelineMax.min.js"></script>
+<script src="/static/plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="/static/plugins/greensock/animation.gsap.min.js"></script>
+<script src="/static/plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+
+
+
+
+
+
+<script src="/static/js/contact.js"></script>
+</body>
+</html>
